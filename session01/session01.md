@@ -41,9 +41,17 @@ rmdir myfolder
 ```
 
 #### touch allows you to create an empty file in your current directory. As parameters it takes the file name.
-
+MacOS only:
 ```bash
 touch myfile.txt
+```
+On Windows Powershell do this instead:
+```bash
+ni myfile.txt
+```
+Or on Command Prompt:
+```bash
+echo > myfile.txt
 ```
 
 #### to remove the file:
