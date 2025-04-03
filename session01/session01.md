@@ -52,7 +52,11 @@ touch myfile.txt
 rm myfile.txt
 ```
 
-#### You can clone files from github to your folder.
+#### You can clone files from github to your folder. 
+There might be an error that git is not installed. 
+On MacOS it should prompt you to install developer tools, please install them. 
+For Windows, please follow this [Link](https://git-scm.com/downloads/win), and install the package.
+Then re-run the command.
 
 ```bash
 git clone https://github.com/fdoblhammer/Machine-Learning-for-Artists.git
