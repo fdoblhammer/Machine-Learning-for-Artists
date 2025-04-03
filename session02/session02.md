@@ -1,35 +1,3 @@
-# ML-creativecoding
-Material for the Creative Coding course – Machine Learning Sessions
-
-Link to the presentation: https://www.figma.com/deck/Bbpi7aXt2P9arA8wzX4fnU/doblhammer.media-Pr%C3%A4sentation?node-id=75-423&node-type=slide&viewport=-153%2C-93%2C0.71&t=kSRoTcAWWosUiQrs-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1
-
-<br><br><br>
-
-## ML in Projects
-
-Dries Depoorter – [Recharge](https://driesdepoorter.be/recharge/)
-
-Dries Depoorter – [Border Birds](https://driesdepoorter.be/borderbirds/)
-
-Trevor Paglen – [ImageNet Roulette](https://paglen.studio/2020/04/29/imagenet-roulette/)
-
-Kate Crawford & Trevor Paglen – [Article "Excavating AI"](https://excavating.ai/)
-
-Heather Dewey-Hagborg – [Gram's Faces](https://deweyhagborg.com/projects/gram-s-faces)
-
-Adam Harvey - [CV Dazzle](https://adam.harvey.studio/cvdazzle/)
-
-Shinseungback Kimyonghun – [Cloud Face](https://ssbkyh.com/works/cloud_face/)
-
-Total View – [Sensing Sinicization](https://doblhammer.media/project/sensing-sinicization)
-
-Ferdinand Doblhammer – [Sibling Inference](https://doblhammer.media/project/sibling-inference)
-
-Dries Depoorter – [The Flamish Scrollers](https://driesdepoorter.be/theflemishscrollers/)
-
-<br><br><br>
-
-
 ## 1. Checking if Python is installed
 
 #### MacOS
@@ -78,7 +46,7 @@ Dries Depoorter – [The Flamish Scrollers](https://driesdepoorter.be/theflemis
 #### Windows
 
 1. Download the Python3.9 installer for Windows(64bit) [here](https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe) 
-2. Double click the downloaded installer
+2. Double click the downloaded installer, make sure to pick version 3.9.13
 3. Check "Add Python to PATH" and choose "Customize Installation"
 4. Under "Advanced Options" make sure "Add Python to environment variables" is checked. (4th checkbox)
 5. Install
