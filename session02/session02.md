@@ -1,45 +1,47 @@
-## 1. Checking if Python is installed
+## 1. Checking if Python is already installed
+
+To run an Object Detector like YOLO, we need to install the programming language python. Please make sure to follow these steps precicely as it is important to install the correct version with the right configurations.
 
 #### MacOS
 
 1.  Open 'Terminal'
-2.  Type `python --version`  
+2.  Type `python3 --version`, press Enter
+3.  Also try `python --version`
 
 #### Windows
 
-1. Open 'Command Prompt'
+1. Open 'Command Prompt' or 'Powershell'
 2. Type `python --version`  
 
-**If you have python 3.9 installed, you can skip step 2**
+<br>
+
+**This can show 3 different outputs**
+
+1. `No such file or directory` – Python is not installed: You'll need to install python.
+2. `Python 3.10.x` or `Python 3.9.x` – Congrats. You already have the right version installed and you can skip the next step. 
+3. `Python 2.x.x` or `Python 3.x.x` – You have a different version than 3.10 (or 3.9) installed – You'll need to install 3.10 and tell your machine to use it.
 <br><br><br>
 
-## 2. Installing Python
+## 2. Installing Python 3.10
 
 #### MacOS
 
-1. Install brew with this Terminal Command: 
-    ```bash 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+1. Download the [Python 3.10 Installer for Mac](https://www.python.org/ftp/python/3.10.11/python-3.10.11-macos11.pkg)
+
+2. Double-click the downloaded .pkg File. If you are on MacOS Sonoma or newer, you might get a warning about an unsupported developer app. To bypass this just **right-click** -> **Open**
+
+3. Follow the install instructions and wait until it finishes installing.
+
+4. Check if Python3.10 was installed correctly
+    ```bash
+    python3 --version
     ```
 
-2. Check if brew was installed correctly
+5. Change/Set Python3.10 to be the default Python Version. Please also do this if you haven't had any versions installed previously.
     ```bash
-    brew --version
-    ```
-
-3. Install Python3.9 with brew
-    ```bash
-    brew install python@3.9
-    ```
-
-4. Check if Python3.9 was installed correctly
-    ```bash
-    python3.9 --version
-    ```
-
-5. Set Python3.9 to be the default Python Version
-    ```bash
-    echo 'alias python3="/usr/local/bin/python3.9"' >> ~/.zshrc
+    echo 'alias python="/usr/local/bin/python3.10"' >> ~/.zshrc
     source ~/.zshrc
     ```
 
