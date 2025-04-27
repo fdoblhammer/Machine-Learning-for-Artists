@@ -24,7 +24,7 @@ To run an Object Detector like YOLO, we need to install the programming language
 
 ## 2. Installing Python 3.10
 
-#### MacOS
+### MacOS
 
 
 
@@ -32,80 +32,401 @@ To run an Object Detector like YOLO, we need to install the programming language
 
 2. Double-click the downloaded .pkg File. If you are on MacOS Sonoma or newer, you might get a warning about an unsupported developer app. To bypass this just **right-click** -> **Open**
 
-3. Follow the install instructions and wait until it finishes installing.
+3. Follow the installer instructions and wait until the installation finishes.
 
-4. Check if Python3.10 was installed correctly
+4. Open the Terminal, check if Python3.10 was installed correctly
     ```bash
     python3 --version
     ```
 
-5. Change/Set Python3.10 to be the default Python Version. Please also do this if you haven't had any versions installed previously.
+5. Change/Set Python3.10 to be the default Python Version.
     ```bash
-    echo 'alias python="/usr/local/bin/python3.10"' >> ~/.zshrc
+    echo 'alias python3="/usr/local/bin/python3.9"' >> ~/.zshrc
     source ~/.zshrc
     ```
+6. On MacOS Catalina and later: 
+   ```bash
+   open -e ~/.zshrc
+   ```
 
-#### Windows
+   older Macs (bash):
+    ```bash
+   open -e ~/.zshrc
+   ```
 
-1. Download the Python3.9 installer for Windows(64bit) [here](https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe) 
-2. Double click the downloaded installer, make sure to pick version 3.9.13
-3. Check "Add Python to PATH" and choose "Customize Installation"
-4. Under "Advanced Options" make sure "Add Python to environment variables" is checked. (4th checkbox)
-5. Install
-6. Verify the installation in Command Prompt/Powershell
+7. Add this at the end of the file:
+    ```bash
+    alias python=python3
+    alias pip=pip3
+    ```
+
+8. Save and close the file.
+
+9. Apply changes:
+    ```bash
+   source ~/.zshrc
+   ```
+
+   older Macs (bash):
+    ```bash
+   source ~/.bash_profile
+   ```
+
+10. Check it with `python --version`
+
+<br><br>
+
+### Windows
+
+1. Download the [Python3.10 installer for Windows(64bit)](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) 
+   
+2. Double-click the downloaded .pkg File.
+   
+3. **IMPORTANT:** Check "Add Python to PATH" at the bottom of the Window.
+   
+4. Install & wait until the installation finishes.
+   
+5. Verify the installation in Command Prompt/Powershell
    ```bash
    python --version
    ```
 
+    **If this doesnt work, the issue lies mostly within the configuration of the Environment Variables. Here is a [guide](https://readmedium.com/how-to-set-up-a-virtual-environment-with-a-different-python-version-on-windows-10-9900eb0acf9a) on how to set this up correctly, or just ask me.**
 
+<br><br>
 
-### Hello World
+### Hello Python
 
 Open Terminal or Command Prompt and type:
 
 1. ```python```
+   
 2. ```print("Rage Against the Machine Learning")```
+   
 3. ```exit()```
 
 
 <br><br><br>
 
+## 3. Creating a virtual environment
 
-## 3. Installing YOLO (Mac and Windows)
+There is two ways of working with python: Either with or without an virtual environment. When working with python, in most projects you'll likely need to install *Python Libraries*. These libraries can sometimes interfere with each other, i.e. when you need two different versions of the same library for two different project. For a clean workflow, I recommend to use a Virtual Environment, which can be seen as a glass dome where your python project lives. 
 
-1. Create a dedicated folder on your machine and open it with Terminal/Command Prompt/Powershell
+1. Create a dedicated folder for your project on your computer at a location where you can find it again.
 
-    *Either* – cd into your folder. You can type `cd + SPACE` and drag your folder into the Terminal/Command Prompt Window
+2. Open VS Code and press `CMD + Shift + N` (CTRL + Shift + N on Windows). 
+
+3. Drag your folder into the newly created window.
+   
+4. Open the Terminal inside VS Code. By default you already should be at the correct folder location.
+
+5. Create a virtual environment
     ```bash
-    cd path/to/your/folder
-    ```
-
-    *Or* – Right-click on your folder and select `New Terminal at folder...`/`Open in Terminal`
-
-2. Create a virtual environment
-    ```bash
-    python -m venv Ultralytics
+    python -m venv Yolo11
     ````
-3. Activate the virtual environment
+6. Activate the virtual environment
    ```bash
-   source ./Ultralytics/bin/activate
+   source ./Yolo11/bin/activate
    ```
    on Windows
    ```bash
-   .\Ultralytics\Scripts\activate
+   .\Yolo11\Scripts\activate
    ```
-4. Install PyTorch
+
+In your Command Line Window should now have (Yolo11) prepended. This indicates you are working within the Virtual Environment. If you close your Command Line Window you will need to reactivate the environment with the command above.
+
+
+## 4. Python Basics
+
+### Creating and running python script in CLI
+
+1. Lets create a file in VS Code. Press `CMD + N` or `CTRL + N`(Windows)
+
+2. Save this file with the `.py` extension. Name it e.g. `test.py`
+
+3. To run this type into the CLI and press enter: 
+    ```bash
+    python test.py
+    ```
+4. If your file is in a subfolder you'll need to:
+    ```bash
+    python foldername/file.py
+    ````
+
+<br>
+
+### Python Syntax Basics
+
+Put this into your test.py file
+
+1. **Printing** something to the console works like this
+    ```python
+    print("Rage Against the Machine Learning)
+    ```
+
+2. We use **variables** to store different kind of data
+   ```python
+   # Numbers
+   x = 5
+   x = 0.1
+   ```
+   ```python
+   # Strings
+   name = "Ferdinand"
+   ```
+   ```python
+   # Booleans
+   active = True
+   ```
+
+3. **Comments** are used to make your code more readable aswell as to deactivate lines you don't need.
+   ```python
+   # One Line Comment
+
+   """ 
+   Multi 
+   Line 
+   Comment
+   """
+   ```
+
+4. **If/else statements** and **loops** 
+    <br>if/else
+    ```python
+    rage = 100
+    if rage >= 100:
+        print(rage)
+    else:
+        print("i sleep")
+    ```
+
+    for loops
+    ```python
+    for i in range(500):
+        print(i)
+    ```
+
+    while loops
+    ```python
+    rage = 0
+    while rage < 100:
+        print(rage)
+        rage += 5
+
+5. **Functions** make your code reusable
+    ```python
+    rage = 100
+
+    def learning(rage):
+        print(f"Learning: {rage}%")
+
+    learning()
+    ```
+
+6. **Lists** can store more than one Value
+    ```python
+    learning = ["Rage", "against", "the", "Machine"]
+    print(learning[1])
+
+    #print(learning[0:4])
+    ```
+
+7. **Dictionaries** 
+    ```python
+    progress = ["Rage": "Yes", "Learning": 100]
+    print(progress["Rage"])
+    ```
+
+8. Working with **libraries**
+   ```python
+   import time 
+
+   rage = 0
+
+    while rage < 100:
+        print(f"{rage} %")
+        rage += 5
+        time.sleep(1)
+    ```
+
+    The `time` library should come by default with the Python installation, but many libraries that extend Pythons functionality need to be installed first. Make sure your virtual environment is active, then run this in the CLI:
+    ```bash
+    pip install examplelibrary
+    ```
+
+9.  If a python script stops working, but doesn't exit itself, press `CRTL + C` to stop it from the CLI
+
+## 5. OpenCV
+OpenCV is a library used mainly for real-time computer vision. We will use it to display images and videos and to do some manipulations on them.
+
+### Installation
+
+In your CLI type this an press enter to install opencv and wait until it finishes (takes a moment):
+```bash
+pip install opencv-python
+```
+
+### Load and display in image
+1. Find an image on your machine, create a new folder in VS Code called `ìmages` and drag it inside.
+2. Create a new python script and name it ?image.py`
+3. Import opencv
+    ```python
+    import cv2
+    ```
+4. Load image in folder
+    ```python
+    image = cv2.imread('images/your_image.jpg')
+    ```
+5. Show image
+    ```python
+    cv2.imshow('Image Window', image)
+    ```
+6. Close if any key is pressed
+    ```python
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    ```
+
+### Draw Shapes
+1. Rectangle
+    ```python
+    cv2.rectangle(image, (50, 50), (200, 200), (0, 0, 255), 2)
+    #Color is in BGR!
+    ```
+  
+2. Circle
+    ```python
+    cv2.circle(image, (300, 300), 40, (255, 0, 0), -1)
+    ```
+3. Results
+    ```python
+    cv2.imshow('Image Window', image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    ```
+
+### Resizing Images
+1.  Values are in px
+    ```python
+    resized_image = cv2.resize(image, (300, 300))
+
+    cv2.imshow('Image', resized)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    ```
+
+### Full Screen
+1. Press any key to exit
+    ```python    
+    image = cv2.imread('your_image.jpg')
+
+    cv2.namedWindow('FullScreenWindow', cv2.WINDOW_NORMAL)
+
+    cv2.setWindowProperty('FullScreenWindow', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+    cv2.imshow('FullScreenWindow', image)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    ```
+
+### Convert the image to Grayscale
+1. Some simple image manipulations
+   ```python
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    cv2.imshow('Grayscale', gray)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    ```
+
+2. Try out some other manipulations from this table
+
+
+    | **Action** | **Command** | **Description** |
+    |:---|:---|:---|
+    | **Grayscale** | `cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)` | Convert to black & white. |
+    | **Resize** | `cv2.resize(img, (width, height))` | Resize to new dimensions. |
+    | **Rotate** | `cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)` | Rotate 90°, 180°, etc. |
+    | **Flip** | `cv2.flip(img, flipCode)` | Flip vertically, horizontally, or both (`flipCode = 0, 1, -1`). |
+    | **Blur** | `cv2.GaussianBlur(img, (5,5), 0)` | Soft blur (good for smoothing noise). |
+    | **Edge Detection** | `cv2.Canny(img, threshold1, threshold2)` | Find edges in the image. |
+    | **Change Brightness/Contrast** | `img_new = cv2.convertScaleAbs(img, alpha=1.5, beta=50)` | Adjust contrast and brightness. |
+    | **Thresholding (Binarization)** | `_, thresh = cv2.threshold(gray_img, 127, 255, cv2.THRESH_BINARY)` | Convert to pure black and white. |
+    | **Draw Text** | `cv2.putText(img, 'Hello', (50,50), font, 1, (255,255,255), 2)` | Write text onto the image. |
+    | **Color Space Change** | `cv2.cvtColor(img, cv2.COLOR_BGR2HSV)` | Convert BGR to HSV color space. |
+    | **Crop Image** | `cropped = img[y1:y2, x1:x2]` | Slice part of an image (crop). |
+
+### Webcam Video
+
+This chooses the first (0) video device on your computer available. Try to do some image manipulations from above on it.
+
+1. Define the webcam as your source:
+    ```python
+    cam = cv2.VideoCapture(0) 
+    ```
+2. Try to read images from the webcam
+    ```python
+    while True:
+        ret, frame = cam.read()
+        if not ret:
+            print("Error: Could not read frame from webcam.")
+            break
+    ```
+
+3.  Show the Video (still in the loop!)
+    ```python
+        cv2.imshow('Webcam', frame)
+    ```
+
+4.  Exit when the key 'q' is pressed
+    ```python
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    ```
+
+5. Release the cam and close window (outside loop)
+    ```python
+    cap.release()
+    cv2.destroyAllWindows()
+    ```
+
+### Read an online Video Stream from insecam.org
+    ```python
+    import cv2
+
+    # Replace with the actual stream URL from insecam.org
+    stream_url = 'http://YOUR_STREAM_IP/mjpg/video.mjpg'
+
+    cap = cv2.VideoCapture(stream_url)
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Failed to get stream.")
+            break
+
+        cv2.imshow('Inseccam.org', frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+    ```
+
+
+
+## 6. Installing YOLO (Mac and Windows)
+
+1. Install PyTorch
    ```
    pip install torch torchvision torchaudio
     ```
-5. Install Ultralytics
+2. Install Ultralytics
    ```
    pip install ultralytics
    ```
-6. Install OpenCV
-    ```
-    pip install opencv-python
-    ```
 
 <br>
 
@@ -113,7 +434,7 @@ Open Terminal or Command Prompt and type:
 
 <br><br><br>
 
-## 4. Run inference on webcam
+## 7. Run inference on webcam
 
 1. Create a folder on your machine and give it a name e.g `"YOLO11_with_Ferdinand"`
 2. Open the folder you just created in your favourite code editor
@@ -212,7 +533,7 @@ cv2.destroyAllWindows()
 
 <br><br><br>
 
-## 4.1. Inference on images
+## 7.1. Inference on images
 
 #### Breakdown of the code:
 
@@ -257,7 +578,7 @@ This should create a folder structure like `runs/detect/predict` where all your 
 <br><br><br>
 
 
-## 4.2 Inference on Video
+## 7.2 Inference on Video
 
 Specify the path to the Video File and run the detector.
 
@@ -275,7 +596,7 @@ print("done")
 
 <br><br><br>
 
-## 5. Finetuning
+## 8. Finetuning
 
 **Confidence Threshold**
 
@@ -330,7 +651,7 @@ For YOLO11n the classes are listed [here](https://github.com/ultralytics/ultraly
 
 <br><br><br>
 
-## 6. Using different datasets
+## 9. Using different datasets
 
 To begin, lets try out some other YOLO models from Ultralytics. They will be downloaded automatically when you start the program.
 
@@ -354,36 +675,242 @@ model = YOLO('yolo11n-pose.pt')
 model = YOLO('yolo11n-cls.pt')
 ```
 
+## 10. The Flamish Scrollers
 
-### 7. Download an annotated Training Dataset and train it on your machine
+A simplified reconstruction of Dries Depoorters work. We'll modify our Python script to print a message when both the classes `person` and `cell phone` are being detected.
+
+We will modify our webcam script, if you need the code its here:
+<details>
+<summary>Code Webcam.py</summary>
+
+```python
+import cv2
+from ultralytics import YOLO
+
+model = YOLO('yolo11n.pt')  
+
+cam = cv2.VideoCapture(0) 
+
+if not cam.isOpened():
+    print("Error: Could not access the webcam.")
+    exit()
+
+
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        print("Error: Could not read frame from webcam.")
+        break
+
+    results = model(frame)
+
+    annotated_frame = results[0].plot()
+
+    cv2.imshow("YOLO11 Detection", annotated_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cam.release()
+cv2.destroyAllWindows()
+```
+
+</details>
+
+<br><br><br>
+
+1. **Find out the number of the classes we want to detect**
+
+    For YOLO11n the classes are listed [here](https://github.com/ultralytics/ultralytics/blob/main/ultralytics/cfg/datasets/coco.yaml)
+
+    <details>
+
+    <summary>Classes</summary>
+
+    `person: 0`
+    `cell phone: 67`
+
+    </details>
+
+
+2. **Set the detector to only detect these two classes**
+
+    Change this line:
+
+    ```python
+    results = model(frame, classes=[0, 67])
+    ```
+
+3. **Unclutter your print**
+
+    The YOLO detector should now only detect the set two classes. Now we want to get a message in the print if both classes are seen. But YOLO is already printing lots of messages – let's suppress those first
+
+    Change this line:
+
+    ```python
+    results = model(frame, classes=[0, 67], verbose=False)
+    ```
+
+4. **Find the relevant data**
+
+    We now we want to find where to talk to the yolo detector. We can try to find the relevant strings by just printing out to the console.
+
+    ```python
+    print(results)
+    ```
+    narrowing down our search we find out that results is actually an array list so we need to adress it like this `results[0]
+
+    ```python
+    print(results[0].boxes)
+    ```
+    on a further look we find the `cls` value (=class). Lets print this then:
+
+    ```python
+    print(results[0].boxes.cls)
+    ````
+
+
+5. **Put the data in the right place (another list)**
+
+
+
+    after the line with `results` add this:
+
+    ```python
+    detected_classes = set()
+    if results[0].boxes is not None:
+        for item in results[0].boxes.cls:
+            detected_classes.add(int(item))
+    ```
+
+    This creates the variable `detected_classes`. If results from the detector are coming in, we look for the fifth value of the detection box – which is the class number – and stores it to `detected_classes`
+
+    If you want to know how a for loop works check [this](https://www.w3schools.com/python/python_for_loops.asp) for reference.
+
+6. **Print if both classes are detected**
+
+    This condition triggers the print if both classes `0` and `67` are detected.
+
+    ```python
+    if 0 in detected_classes and 67 in detected_classes:
+        print("Stay focused!")
+    ```
+<br>
+
+<details>
+
+<summary>Full Code</summary>
+
+```python
+import cv2
+from ultralytics import YOLO
+
+model = YOLO('yolo11n.pt')  
+
+confidence_threshold = 0.1
+
+cam = cv2.VideoCapture(0) 
+
+if not cam.isOpened():
+    print("Error: Could not access the webcam.")
+    exit()
+
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        print("Error: Could not read frame from webcam.")
+        break
+
+    results = model(frame, conf=confidence_threshold, classes=[0, 67], verbose=False)
+
+    #print(results)
+    #print(results[0].boxes)
+    #print(results[0].boxes.cls)
+
+    detected_classes = set()
+    if results[0].boxes is not None:
+        for item in results[0].boxes.cls:
+            detected_classes.add(int(item))
+
+    
+    if 0 in detected_classes and 67 in detected_classes:
+        print("Stay focused!")
+    
+    annotated_frame = results[0].plot()
+    cv2.imshow("YOLO11 Detection", annotated_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cam.release()
+cv2.destroyAllWindows()
+
+```
+
+</details>
+
+
+<br><br><br>
+
+
+
+### 9. Download an annotated Training Dataset and train it on your machine
+
+### What does a training set look like?
+- Consists of a lot of representative images of the objects/things the algorithm should detect.
+- Normally, results start to get good at 800+ images per class (=type of object)
+- For each image, there is a corresponing 'label' file, which holds the information on the class (=what object) and its position on the image (=coordinates)
+- The structure of a YOLO Dataset typically looks like this:
+- - A folder `train` containing 80% of the files:
+- - - folder `images` with image files (.jpg, .png)
+- - - folder `labels` with corresponding annotation files (.txt)
+- - A folder `val` containing 20% of the files:
+- - - folder `images` with image files (.jpg, .png)
+- - - folder `labels` with corresponding annotation files (.txt) 
+- - A `.yaml`file containing information about our classes and folder location
+
+<br><br><br>
+
+### Download an annotated Training Dataset and train it on your machine
 
 Sources:
 
-[Roboflow](https://universe.roboflow.com)
-[kaggle](https://kaggle.com)
+[Roboflow](universe.roboflow.com)
+[kaggle](kaggle.com)
 
+A not very sophisticated dataset:
+[Open/Close Eyes Dataset](https://universe.roboflow.com/isee-gufmk/eyes-zefum/dataset/6)
 
 <br>
 
-1. Download this git repository (as a zip) like described [here](https://medium.com/@bezzam/four-ways-to-download-a-github-repo-a31496ad5b81) under point 1
-   (No need to get behind the paywall!)
-3. Change directory to the downloaded folder in the macOS/Linux Terminal or Powershell if you are on Windows
-4. Create and activate a virtual environment inside the downloaded folder and install Ultralytics. 
-   [See here](https://github.com/fdoblhammer/ML-creativecoding/tree/main#3-installing-yolo-mac-and-windows)
-5. In the project folder open train.py in your code text editor (VS Code, Sublime Text, etc.)
-6. Update the path in "data=" to the absolute path on your system.
-   In VS Code you can right-click on the data.yaml file and select "Copy Path", then paste it after "data="
-   On macOS drop the data.yaml file into a fresh Terminal window to see the path
-8. Don't forget to save train.py after making changes
-9. Start the training in your comomand line (Terminal, Powershell, …) by running:
+1. Extract downloaded dataset folder into your project folder.
+2. In your project folder create a file named `train.py`
+3. Code:
+    ```python
+    from ultralytics import YOLO
+
+    # Load a model
+    model = YOLO("yolo11n.pt")  # load a pretrained model (recommended for training)
+
+    # Train the model
+    results = model.train(data="yourdatasetfolder/data.yaml", epochs=100, imgsz=640)
+    ```
+4. Start the training
     ```bash
     python train.py
     ```
 
-#### **Optional**
-10. Wait until finished
-11. Navigate to the newly created folder `runs/train/weights`and find `best.pt`
-12. Copy best.pt save it to a different location and name it `mytraining.pt`
+    You will probably encounter an error when running this because 
+
+5. Wait until finished
+6. Navigate to the newly created folder `runs/train/weights`and find `best.pt`
+7. Copy best.pt save it to a different location and name it `mytraining.pt`
 
 <br><br><br>
 
+### Label your own dataset 
+
+Use a program like AnyLabelling locally to label your own datasets. This software is open source and completely free:
+[AnyLabelling Download Page](https://github.com/vietanhdev/anylabeling/releases)
+
+Or use online annotation tools, either [Roboflow](roboflow.com) or [CVAT](cvat.ai). Both offer a free plan and additionally have useful features like dataset exports in correct formats.
