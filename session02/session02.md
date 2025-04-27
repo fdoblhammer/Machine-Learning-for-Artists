@@ -854,7 +854,7 @@ cv2.destroyAllWindows()
 
 
 
-### 9. Download an annotated Training Dataset and train it on your machine
+## 11. Download an annotated Training Dataset and train it on your machine
 
 ### What does a training set look like?
 - Consists of a lot of representative images of the objects/things the algorithm should detect.
