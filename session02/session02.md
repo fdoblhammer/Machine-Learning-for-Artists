@@ -221,7 +221,7 @@ Put this into your test.py file
     def learning(rage):
         print(f"Learning: {rage}%")
 
-    learning()
+    learning(rage)
     ```
 
 6. **Lists** can store more than one Value
