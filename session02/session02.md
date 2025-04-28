@@ -441,9 +441,7 @@ This chooses the first (0) video device on your computer available. Try to do so
 
 ## 7. Run inference on webcam
 
-1. Create a folder on your machine and give it a name e.g `"YOLO11_with_Ferdinand"`
-2. Open the folder you just created in your favourite code editor
-3. Create a new file and call it `webcam.py`
+1. Create a new file and call it `webcam.py`
 
 ### webcam.py code breakdown:
 
