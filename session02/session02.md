@@ -222,6 +222,7 @@ Put this into your test.py file
         print(f"Learning: {rage}%")
 
     learning(rage)
+    learning(rage)
     ```
 
 6. **Lists** can store more than one Value
@@ -234,6 +235,7 @@ Put this into your test.py file
 
 7. **Dictionaries** 
     ```python
+    progress = {"Rage": "Yes", "Learning": 100}
     progress = {"Rage": "Yes", "Learning": 100}
     print(progress["Rage"])
     ```
