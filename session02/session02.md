@@ -41,7 +41,7 @@ To run an Object Detector like YOLO, we need to install the programming language
 
 5. Change/Set Python3.10 to be the default Python Version.
     ```bash
-    echo 'alias python3="/usr/local/bin/python3.9"' >> ~/.zshrc
+    echo 'alias python3="/usr/local/bin/python3.10"' >> ~/.zshrc
     source ~/.zshrc
     ```
 6. On MacOS Catalina and later: 
@@ -135,6 +135,7 @@ There is two ways of working with python: Either with or without an virtual envi
 
 In your Command Line Window should now have (Yolo11) prepended. This indicates you are working within the Virtual Environment. If you close your Command Line Window you will need to reactivate the environment with the command above.
 
+<br><br><br>
 
 ## 4. Python Basics
 
@@ -256,6 +257,8 @@ Put this into your test.py file
 
 9.  If a python script stops working, but doesn't exit itself, press `CRTL + C` to stop it from the CLI
 
+<br><br><br>
+
 ## 5. OpenCV
 OpenCV is a library used mainly for real-time computer vision. We will use it to display images and videos and to do some manipulations on them.
 
@@ -263,8 +266,10 @@ OpenCV is a library used mainly for real-time computer vision. We will use it to
 
 In your CLI type this an press enter to install opencv and wait until it finishes (takes a moment):
 ```bash
-pip install opencv-python
+pip install opencv-python==4.10.0.84
 ```
+
+At the moment writing, the newest opencv didn't work for me, so we will download version 4.10.0.84
 
 ### Load and display in image
 1. Find an image on your machine, create a new folder in VS Code called `ìmages` and drag it inside.
@@ -350,7 +355,7 @@ pip install opencv-python
     | **Rotate** | `cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)` | Rotate 90°, 180°, etc. |
     | **Flip** | `cv2.flip(img, flipCode)` | Flip vertically, horizontally, or both (`flipCode = 0, 1, -1`). |
     | **Blur** | `cv2.GaussianBlur(img, (5,5), 0)` | Soft blur (good for smoothing noise). |
-    | **Edge Detection** | `cv2.Canny(img, threshold1, threshold2)` | Find edges in the image. |
+    | **Edge Detection** | `cv2.Canny(img, 100, 200)` | Find edges in the image. |
     | **Change Brightness/Contrast** | `img_new = cv2.convertScaleAbs(img, alpha=1.5, beta=50)` | Adjust contrast and brightness. |
     | **Thresholding (Binarization)** | `_, thresh = cv2.threshold(gray_img, 127, 255, cv2.THRESH_BINARY)` | Convert to pure black and white. |
     | **Draw Text** | `cv2.putText(img, 'Hello', (50,50), font, 1, (255,255,255), 2)` | Write text onto the image. |
@@ -675,6 +680,8 @@ model = YOLO('yolo11n-pose.pt')
 model = YOLO('yolo11n-cls.pt')
 ```
 
+<br><br><br>
+
 ## 10. The Flamish Scrollers
 
 A simplified reconstruction of Dries Depoorters work. We'll modify our Python script to print a message when both the classes `person` and `cell phone` are being detected.
@@ -852,9 +859,81 @@ cv2.destroyAllWindows()
 
 <br><br><br>
 
+## 11. Getting the data out of the box with OSC
+Open Sound Control (OSC) is a protocol for sending simple data strings over the network. It is super easy to use and supported in a wide range of programs/languages. You can either send messages locally on your device, or send them to other machines. The devices have to be on the same network though.
+
+Before starting, make sure to install python-osc with:
+```bash
+pip install python-osc
+```
+
+### Simple Sender Script
+
+1. Import necessary libraries
+    ```python
+    from pythonosc import udp_client
+    import time
+    ```
+
+2. Define which at IP address you want to send the message to:
+   1. Local (Your computer)
+        ```python
+        ip = "127.0.0.1"
+        ```
+    1. Everone on the network
+        ```python
+        ip = "255.255.255.255"
+        ```
+    2. Find out the specific ip address of the receiving device
+        ```python
+        ip = "xxx.xxx.xxx.xxx"
+        ```
+3. Define the port on both devices
+    ```python
+    port = 5005
+    ```
+
+4. Set up the Client
+   ```python
+   client = udp_client.SimpleUDPClient(ip, port)
+   ```
+5. Set and send the message
+    ```python
+    message = "Hello from PythonOSC!"
+    client.send_message("/test", message)
+
+    print(f"Sent: {message}")
+    ```
+
+### Simple Receiver Script
+
+```python
+from pythonosc import dispatcher
+from pythonosc import osc_server
+
+def handle_message(address, *args):
+    print(f"Received message at {address}: {args[0]}")
+
+# Set up dispatcher
+disp = dispatcher.Dispatcher()
+disp.map("/test", handle_message)
 
 
-## 11. Download an annotated Training Dataset and train it on your machine
+ip = "127.0.0.1"  
+port = 5005       # must match sender
+server = osc_server.BlockingOSCUDPServer((ip, port), disp)
+
+print(f"Listening on {ip}:{port}")
+server.serve_forever()
+```
+
+### Sending out data from YOLO11
+
+
+
+<br><br><br>
+
+## 12. Download an annotated Training Dataset and train it on your machine
 
 ### What does a training set look like?
 - Consists of a lot of representative images of the objects/things the algorithm should detect.
