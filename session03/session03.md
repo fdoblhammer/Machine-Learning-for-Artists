@@ -1,6 +1,7 @@
 # Session 03
 
-## 1. ReActivate your virtual environment
+## 1. Reactivate your virtual environment
+If you haven't created one yet, please follow the isntructions from [Session 2](../session02/session02.md)
 
 1. Open VS Code and press `CMD + Shift + N` (CTRL + Shift + N on Windows). 
 
@@ -81,7 +82,7 @@ Plot the results so we can see them:
 
 Show the results in a new window:
 ```python
-    cv2.imshow("YoloV8 Webcam", annotated_frame)
+    cv2.imshow("Yolo11 Webcam", annotated_frame)
 ```
 
 Break the loop and close the program:
@@ -132,6 +133,8 @@ cv2.destroyAllWindows()
 ```
 
 </details>
+
+**On my installation i ran into an error with numpy, that wouldn't let me start the script. If that's the case, you need to install an older version of numpy: `pip install "numpy<2"**
 
 <br><br><br>
 
@@ -198,6 +201,189 @@ print("done")
 
 <br><br><br>
 
+## 3.3 Run inference on a stream from inseccam.org
+Modify your webcam script for this. It can stay mostly the same, but we'll need to use another source. Some streams don't work – they might require a login. Just choose another stream.
+
+1. Get your videostream from insecam.org. Rightclick on a video stream and press 'Copy Image Address'
+   
+2. Create a variable after your imports
+   ```python
+   #Paste your URL
+   stream_url = 'http://url.mjpg
+   ```
+
+3. Change this line below:
+   ```python
+   cam = cv2.VideoCapture(stream_url) 
+   ```
+
+<details>
+<summary>Full Code</summary>
+
+```python
+import cv2
+from ultralytics import YOLO
+
+model = YOLO('yolo11n.pt')  
+
+stream_url = 'http://190.210.250.149:91/mjpg/video.mjpg'
+
+cam = cv2.VideoCapture(stream_url) 
+
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        print("Failed to get Stream.")
+        break
+
+    results = model(frame)
+
+    annotated_frame = results[0].plot()
+
+    cv2.imshow("YOLO11 Insecam.org", annotated_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cam.release()
+cv2.destroyAllWindows()
+```
+</details>
+<br><br><br>
+
+## 3.4 Inference on Twitch Stream
+To load a Twitch (or YouTube) videostream, we need to install another library first called `streamlink`
+
+1. Install streamlink and ffmpeg-python (for video encoding). It's possible to install multiple libraries just by separating them with space
+   ```bash
+   pip install ffmpeg-python streamlink
+   ```
+2. In the python script, we need to change the imports. Add streamlink and subprocess.
+   ```python
+    import subprocess
+    import streamlink
+    ```
+3. To correctly implement the stream, we need to write a short function.
+   
+   1. Define twitch url
+        ```python
+        TWITCH_URL = 'your_twitch_url
+        ```
+    2. Get Stream URL function
+        ```python
+        def get_stream_url(url):
+            streams = streamlink.streams(url)
+            if 'best' in streams:
+                return streams['best'].url
+            else:
+                raise Exception("Could not retrieve stream.")
+        ```
+4. Let's put our inference also into function, so we can call it later in a main function.
+    ```python
+    def run_inference():
+        stream_url = get_stream_url(TWITCH_URL)
+
+        # Open video stream with OpenCV
+        cap = cv2.VideoCapture(stream_url)
+        if not cap.isOpened():
+            print("Failed to open Twitch stream.")
+            return
+
+        print("Streaming and running inference... Press 'q' to quit.")
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                print("Stream ended or frame couldn't be read.")
+                break
+
+            # Run inference
+            results = model(frame)
+
+            # Draw results on frame
+            annotated_frame = results[0].plot()
+
+            # Show frame
+            cv2.imshow("YOLO11 on Twitch Stream", annotated_frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+    cap.release()
+    cv2.destroyAllWindows()
+    ```
+
+5. Call the inference function in a main function:
+    ```python
+    if __name__ == '__main__':
+    run_inference()
+    ```
+
+<details>
+<summary>Full Code</summary>
+   
+```python
+import cv2
+import subprocess
+from ultralytics import YOLO
+import streamlink
+
+# Add Twitch URL
+TWITCH_URL = ''
+
+model = YOLO('yolo11n.pt')
+
+def get_stream_url(url):
+    
+    streams = streamlink.streams(url)
+    if 'best' in streams:
+        return streams['best'].url
+    else:
+        raise Exception("Could not retrieve stream.")
+
+def run_inference():
+    stream_url = get_stream_url(TWITCH_URL)
+
+    cap = cv2.VideoCapture(stream_url)
+    if not cap.isOpened():
+        print("Failed to open Twitch stream.")
+        return
+
+    print("Streaming and running inference... Press 'q' to quit.")
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Stream ended or frame couldn't be read.")
+            break
+
+        results = model(frame)
+
+        annotated_frame = results[0].plot()
+
+        cv2.imshow("YOLO11 on Twitch Stream", annotated_frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    run_inference()
+
+```
+</details>
+
+<br><br><br>
+
+## 3.5 Inference on Youtube Stream
+
+Same as above, just change `TWITCH_URL` to `YOUTUBE_URL` and add your youtube url.
+
+<br><br><br>
+
+
 ## 4. Finetuning
 
 **Confidence Threshold**
@@ -231,7 +417,10 @@ If you have a graphics card (NVIDIA or Apple M1/2/3/4 Chip) you can run the infe
 results = model(frame, device=cpu)
 #GPU
 results = model(frame, device=0)
+# Apple Silicon (M1 Chip and above)
+results = model(frame, device="mps")
 ```
+
 
 **Maximum Number of Detections**
 
@@ -399,7 +588,13 @@ cv2.destroyAllWindows()
     if 0 in detected_classes and 67 in detected_classes:
         print("Stay focused!")
     ```
+
+7. **Run on YouTube Stream**
+   
+   Combine the Inference on YouTube Script with the script we created above!
 <br>
+
+
 
 <details>
 
@@ -455,6 +650,8 @@ cv2.destroyAllWindows()
 
 
 <br><br><br>
+
+
 
 ## 7. Getting the data out of the box with OSC
 Open Sound Control (OSC) is a protocol for sending simple data strings over the network. It is super easy to use and supported in a wide range of programs/languages. You can either send messages locally on your device, or send them to other machines. The devices have to be on the same network though.
@@ -524,13 +721,201 @@ print(f"Listening on {ip}:{port}")
 server.serve_forever()
 ```
 
-### Sending out data from YOLO11
+### Sending out data from YOLO11 (With the Flamish Scrollers)
+
+1. Modify the python script to send messages, whenever the classes 'person' and 'cell phone' are detected. 
+
+2. Make the script run in fullscreen with OpenCV.
 
 
 
 <br><br><br>
 
-## 8. Download an annotated Training Dataset and train it on your machine
+## 8. More Yolo Applications
+
+## 8.1 Blur Boxes (easy)
+
+
+
+```python
+import cv2
+
+from ultralytics import solutions
+
+cap = cv2.VideoCapture(0)
+
+
+blurrer = solutions.ObjectBlurrer(
+    show=True,  # display the output
+    model="yolo11n.pt",  
+    # line_width=2, 
+    # classes=[0, 2]
+    # blur_ratio=0.5,  # adjust percentage of blur intensity, the value in range 0.1 - 1.0
+)
+
+# Process video
+while cap.isOpened():
+    success, im0 = cap.read()
+
+    if not success:
+        print("Video frame is empty or processing is complete.")
+        break
+
+    results = blurrer(im0)
+
+    # print(results")  # access the output
+
+
+cap.release()
+
+cv2.destroyAllWindows()  # destroy all opened windows
+````
+
+
+
+## 8.1.1 Person Blur with yolo11-seg (intermediate)
+
+Create a blurring effect that only works on persons. Modify the webcam script for this.
+
+1. In our imports, we need to add `numpy`, this is a very popular library for array operations. For ease of use we can reference it as `np`
+    ```python
+    import cv2
+    import numpy as np
+    from ultralytics import YOLO
+    ```
+
+2. We need to use the yolo-seg model to get masks
+    ```python
+    model = YOLO('yolov11n-seg.pt')
+    ```
+
+3. Open the webcam – this stays the same
+    ```python
+    cap = cv2.VideoCapture(0)
+
+    if not cap.isOpened():
+        print("Error: Could not open webcam.")
+        exit()
+    
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+    ```
+
+4. To create a mask of the correct size, we need to find out the dimensions of our frame
+    ```python
+    height, width = frame.shape[:2]
+    ```
+
+5. Feed the Yolo model
+    ```python
+    results = model(frame, verbose=False)
+    ```
+
+6. Create an empty grayscale mask in the size of the video
+    ```python
+    mask = np.zeros((height, width), dtype=np.uint8)
+    ```
+
+7. This function gets the data of the mask created by yolo and converts feeds into the empty grayscale mask we created before.
+    ```python
+    for result in results:
+        if result.masks is not None:
+            for seg, cls in zip(result.masks.data, result.boxes.cls):
+                if int(cls) == 0:  # class 0 = person
+                    seg_mask = (seg.cpu().numpy() * 255).astype(np.uint8)
+                    seg_mask_resized = cv2.resize(seg_mask, (width, height), interpolation=cv2.INTER_NEAREST)
+                    mask = cv2.bitwise_or(mask, seg_mask_resized)
+    ```
+    
+8. Convert the grayscale mask to a color mask - so we can use it with color frames.
+    ```python
+    mask_3ch = cv2.merge([mask] * 3)
+    ```
+
+9. Blur the whole image. (51, 51) is the kernel size, increase to blur more. It only takes odd numbers though.
+    ```python
+    blurred = cv2.GaussianBlur(frame, (51, 51), 0)
+    ````
+
+10. Create the final output by defining that where the mask is white (=255) the regions should be blurred.
+    ```python
+    result_frame = np.where(mask_3ch == 255, blurred, frame)
+    ```
+
+11. Show the combined result
+    ```python
+    cv2.imshow('YOLO11 - Blurred Persons', result_frame)
+    ```
+
+12. Logic to end the script.
+    ```python
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+    ```
+
+
+<details>
+<summary>Full Code</summary>
+
+```python
+import cv2
+import numpy as np
+from ultralytics import YOLO
+
+model = YOLO('yolov11n-seg.pt')
+
+cap = cv2.VideoCapture(0)
+
+if not cap.isOpened():
+    print("Error: Could not open webcam.")
+    exit()
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    height, width = frame.shape[:2]
+
+    results = model(frame, verbose=False)
+
+    mask = np.zeros((height, width), dtype=np.uint8)
+
+    for result in results:
+        if result.masks is not None:
+            for seg, cls in zip(result.masks.data, result.boxes.cls):
+                if int(cls) == 0: 
+                    seg_mask = (seg.cpu().numpy() * 255).astype(np.uint8)
+                
+                    seg_mask_resized = cv2.resize(seg_mask, (width, height), interpolation=cv2.INTER_NEAREST)
+                    mask = cv2.bitwise_or(mask, seg_mask_resized)
+
+    mask_3ch = cv2.merge([mask] * 3)
+
+    blurred = cv2.GaussianBlur(frame, (101, 101), 0)
+
+    result_frame = np.where(mask_3ch == 255, blurred, frame)
+
+    cv2.imshow('YOLOv8 - Blurred Persons', result_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+
+cap.release()
+cv2.destroyAllWindows()
+```
+
+</details>
+
+
+
+## 9. Download an annotated Training Dataset and train it on your machine
 
 ### What does a training set look like?
 - Consists of a lot of representative images of the objects/things the algorithm should detect.
@@ -565,7 +950,6 @@ A not very sophisticated dataset:
     ```python
     from ultralytics import YOLO
 
-    # Load a model
     model = YOLO("yolo11n.pt")  # load a pretrained model (recommended for training)
 
     # Train the model
@@ -576,17 +960,21 @@ A not very sophisticated dataset:
     python train.py
     ```
 
-    You will probably encounter an error when running this because 
-
 5. Wait until finished
 6. Navigate to the newly created folder `runs/train/weights`and find `best.pt`
 7. Copy best.pt save it to a different location and name it `mytraining.pt`
 
 <br><br><br>
 
-### Label your own dataset 
+## 10. Label your own dataset 
 
 Use a program like AnyLabelling locally to label your own datasets. This software is open source and completely free:
 [AnyLabelling Download Page](https://github.com/vietanhdev/anylabeling/releases)
 
 Or use online annotation tools, either [Roboflow](roboflow.com) or [CVAT](cvat.ai). Both offer a free plan and additionally have useful features like dataset exports in correct formats.
+
+<br><br><br>
+
+## 11. Create a Ultralytics HUB Account and Upload your dataset
+
+[Ultralytics Hub](https://www.ultralytics.com/de/hub)
