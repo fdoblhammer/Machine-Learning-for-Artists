@@ -209,7 +209,7 @@ Modify your webcam script for this. It can stay mostly the same, but we'll need 
 2. Create a variable after your imports
    ```python
    #Paste your URL
-   stream_url = 'http://url.mjpg
+   stream_url = 'http://url.mjpg'
    ```
 
 3. Change this line below:
