@@ -78,6 +78,10 @@ model = YOLO('yolo11n-pose.pt')
 model = YOLO('yolo11n-cls.pt')
 ```
 
+**Custom Weights**
+```python
+model = YOLO('fd_violence1.pt')
+
 <br><br><br>
 
 
