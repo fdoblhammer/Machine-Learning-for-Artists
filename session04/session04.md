@@ -61,6 +61,8 @@ cam.release()
 cv2.destroyAllWindows()
 ```
 
+</details>
+
 ### Official YOLO-Weights from Ultralytics
 
 **Segmentation**
