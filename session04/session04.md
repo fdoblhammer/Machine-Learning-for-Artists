@@ -461,12 +461,26 @@ Use a program like AnyLabelling locally to label your own datasets. This softwar
 
 Or use online annotation tools, either [Roboflow](roboflow.com) or [CVAT](cvat.ai). Both offer a free plan and additionally have useful features like dataset exports in correct formats.
 
+For this class, we will stick with AnyLabeling. Be aware that it might take a moment to start. 
+
+<br><br><br>
+
 ### Train on your face
 
-Collect about 50-100 images of your face. 
+1. Collect about 50-100 images of your face. Either by taking them at the spot, or by finding them through your Photo Library. Ofc, more is better.
+
+2. Add some photos (about 20% of your dataset) that aren't depicting your face. 
+
+3. Label all of the Photos in Anylabelling containing your face with one class = your_name
+
+4. Export the dataset with Tools > Export Annotations. Choose YOLO (.txt) format and set an output folder. Split your dataset into 80% train and 20% val. (0% test) 
 
 <br><br><br>
 
 ## 8. Upload your dataset to our owncloud 
 
-[Ultralytics Hub](https://www.ultralytics.com/de/hub)
+1. Make sure your dataset is in the right format with train and val folders in place and contains a .yaml file.
+   
+2. Create a folder with your name on our Owncloud `2025S – S05594 – Machine Learning for Artists` in `Datasets_Face`
+
+3. Upload your dataset folders. 
