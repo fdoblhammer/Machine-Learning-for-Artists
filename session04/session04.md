@@ -301,7 +301,7 @@ Create a blurring effect that only works on persons (or other classes). Modify t
 
 2. We need to use the yolo-seg model to get masks
     ```python
-    model = YOLO('yolov11n-seg.pt')
+    model = YOLO('yolo11n-seg.pt')
     ```
 
 3. Open the webcam – this stays the same
