@@ -65,6 +65,17 @@ cv2.destroyAllWindows()
 
 ### Official YOLO-Weights from Ultralytics
 
+**Larger Datasets**
+The 'n' in yolo11n stands for nano. This is the smallest dataset created by Ultralytics. For more classes and precise inference it is possible to use larger Datasets with the endings: `s` `m` `l` `xl`. Note that larger dataset take in more computing power.
+```python
+model = YOLO('yolo11s.pt')
+```
+
+```python
+model = YOLO('yolo11l.pt')
+```
+
+
 **Segmentation**
 ```python
 model = YOLO('yolo11n-seg.pt')
@@ -83,6 +94,7 @@ model = YOLO('yolo11n-cls.pt')
 **Custom Weights**
 ```python
 model = YOLO('fd_violence1.pt')
+```
 
 <br><br><br>
 
@@ -149,6 +161,10 @@ Before starting, make sure to install python-osc with:
 ```bash
 pip install python-osc
 ```
+
+For easier monitoring of incoming OSC Values "Protokol" by Hexler is recommended. There is also an iOS/Android App which makes testing out the network connection super easy. [Download Protokol](https://hexler.net/protokol#get)
+
+<br><br><br>
 
 ### Simple Sender Script
 
@@ -225,16 +241,19 @@ server.serve_forever()
 
 ## 5.1 Blur Boxes (easy)
 
+By default, blurring a detection box is supported by Ultralytics. You can find more solutions like cropping, counting etc. [here](https://docs.ultralytics.com/solutions/)
 
-
+1. Change the import to import the solutions
 ```python
 import cv2
 
 from ultralytics import solutions
 
 cap = cv2.VideoCapture(0)
+```
 
-
+2. Set up the blurrer object
+```python
 blurrer = solutions.ObjectBlurrer(
     show=True,  # display the output
     model="yolo11n.pt",  
@@ -242,24 +261,27 @@ blurrer = solutions.ObjectBlurrer(
     # classes=[0, 2]
     # blur_ratio=0.5,  # adjust percentage of blur intensity, the value in range 0.1 - 1.0
 )
+```
 
-# Process video
+3. Run on Video Stream
+```python
 while cap.isOpened():
     success, im0 = cap.read()
 
     if not success:
-        print("Video frame is empty or processing is complete.")
+        print("Video frame is empty")
         break
 
     results = blurrer(im0)
 
-    # print(results")  # access the output
+    # print(results)  # access the output
 
 
 cap.release()
 
 cv2.destroyAllWindows()  # destroy all opened windows
-````
+```
+
 
 
 
@@ -485,4 +507,6 @@ For this class, we will stick with AnyLabeling. Be aware that it might take a mo
    
 2. Create a folder with your name on our Owncloud `2025S – S05594 – Machine Learning for Artists` in `Datasets_Face`
 
-3. Upload your dataset folders. 
+3. Upload your dataset folders.
+
+<br><br><br>
