@@ -154,6 +154,8 @@ cv2.destroyAllWindows()
 
 </details>
 
+<br><br><br>
+
 ## 4. Getting the data out of the box with OSC
 Open Sound Control (OSC) is a protocol for sending simple data strings over the network. It is super easy to use and supported in a wide range of programs/languages. You can either send messages locally on your device, or send them to other machines. The devices have to be on the same network though.
 
@@ -287,7 +289,7 @@ cv2.destroyAllWindows()  # destroy all opened windows
 
 ## 5.1.1 Person Blur with yolo11-seg (intermediate)
 
-Create a blurring effect that only works on persons. Modify the webcam script for this.
+Create a blurring effect that only works on persons (or other classes). Modify the webcam script for this.
 
 1. In our imports, we need to add `numpy`, this is a very popular library for array operations. For ease of use we can reference it as `np`
     ```python
