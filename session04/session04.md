@@ -461,8 +461,12 @@ Use a program like AnyLabelling locally to label your own datasets. This softwar
 
 Or use online annotation tools, either [Roboflow](roboflow.com) or [CVAT](cvat.ai). Both offer a free plan and additionally have useful features like dataset exports in correct formats.
 
+### Train on your face
+
+Collect about 50-100 images of your face. 
+
 <br><br><br>
 
-## 8. Create a Ultralytics HUB Account and Upload your dataset
+## 8. Upload your dataset to our owncloud 
 
 [Ultralytics Hub](https://www.ultralytics.com/de/hub)
