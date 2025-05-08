@@ -92,8 +92,9 @@ model = YOLO('yolo11n-cls.pt')
 ```
 
 **Custom Weights**
+You can download this one from our Github
 ```python
-model = YOLO('fd_violence1.pt')
+model = YOLO('fd_violencedetection_1.pt')
 ```
 
 <br><br><br>
@@ -427,7 +428,7 @@ cv2.destroyAllWindows()
 
 </details>
 
-
+<br><br><br>
 
 ## 6. Download an annotated Training Dataset and train it on your machine
 
@@ -512,3 +513,29 @@ For this class, we will stick with AnyLabeling. Be aware that it might take a mo
 3. Upload your dataset folders.
 
 <br><br><br>
+
+
+## 9. DeepFace
+
+We have noticed, that a reliable detection of the face (especially in different environments/surroundings/lighting situations) is only possible with a vast amount of data. Even One-Shot systems like YOLOE fail more or less detecting the same face reliably. 
+
+For face detection we can use [Deepface](https://github.com/serengil/deepface) to detect faces only using a single reference image.
+
+1. Create a new folder on your computer, name it accordingly
+
+2. Open the folder in VS Code and create a virtual environment, as we did with YOLO
+
+3. In session04 navigate to folder `Deepface` and download the requirements.txt.
+
+4. Place the requirements.txt file in your folder 
+
+5. Install requirement with: 
+    ```bash
+    pip install -r requirements.txt
+
+6. Run the script from the github
+
+
+## 10. Using One Shot Systems like YOLOE
+
+tbd
