@@ -152,7 +152,7 @@ cv2.destroyAllWindows()
 
 ```
 
-</detais>
+</details>
 
 ## 4. Getting the data out of the box with OSC
 Open Sound Control (OSC) is a protocol for sending simple data strings over the network. It is super easy to use and supported in a wide range of programs/languages. You can either send messages locally on your device, or send them to other machines. The devices have to be on the same network though.
