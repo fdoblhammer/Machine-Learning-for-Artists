@@ -28,4 +28,3 @@ Document your results and upload them to the Owncloud. When you've handed in you
 ## Option 3: Get some other ML-Application to work
 
 Please write me an email of what your planning to do.
-a
