@@ -14,7 +14,7 @@ For face detection we can use [Deepface](https://github.com/serengil/deepface) t
 
 2. Open the folder in VS Code and create a virtual environment, as we did with YOLO. **Important**: Make sure you use a Python Version from 3.7-3.10. Newer versions will not work!
 
-3. In session06 navigate to folder `Deepface` and download the deepface_requirements.txt.
+3. In session06 navigate to folder `Deepface` and download the [deepface_requirements.txt](deepface_requirements.txt).
 
 4. Place the deepface_requirements.txt file in your folder 
 
@@ -1180,6 +1180,8 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+<br><br><br>
 
 
 ## 3.3 Recognize Trigger Words
