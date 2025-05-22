@@ -9,19 +9,19 @@ ferdinand.doblhammer@uni-ak.ac.at
 
 ## Option 1: A custom YOLO Detector
 
-Create a dataset of one (or multiple different) objects of your choosing you want to detect. Try to avoid classes that already exist within the YOLO framework. Label your data and train a detector. The base mark for a working classification is normally ~800 images per class, but it can be less – if it works reliably. 
+Create a dataset of one or more objects that you want to detect. Avoid classes that already exist within the YOLO framework. Label your data and train a detector. The standard requirement for a reliable classification is typically ~800 images per class, though fewer may suffice.
 
-Hand in your dataset by uploading it to the owncloud folder. When you've handed in your work write me an email with a short description of what the classifier should be capable of and where i can find it/what its called. 
+Submit your dataset by uploading it to the OwnCloud folder. After submitting your work, email me a brief description of the classifier's capabilities and how to access it.
 
-If I cannot access the to be detected object, add videos of the object, so i can test it properly.
+If I cannot access the object to be detected, add videos of the object so I can test it properly.
 
 <br>
 
 ## Option 2: A small (displaced) application
 
-Hand in documentation of a small project you did with a predifined model. For this you could choose either YOLO, DeepFace, MediaPipe, Whisper or combinations. This project should critically reflect on the way such algorithm work. This could be done through misusing or displacing the algorithms. 
+Submit documentation of a small project that you completed using a predefined model. You may choose from YOLO, DeepFace, MediaPipe, Whisper, or any combination of these. This project should critically reflect on how such algorithms work. You could do this by misusing or displacing the algorithms.
 
-Document your results and upload them to the Owncloud. When you've handed in your work write me an email with a short description.
+Document your results and upload them to Owncloud. After submitting your work, email me a brief description.
 
 <br>
 
