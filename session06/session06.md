@@ -476,7 +476,7 @@ Mediapipe is a framework by Google for real-time computer vision applications. I
 3. Install mediapipe via pip
 
     ```bash
-    pip install mediapipe opencv-python
+    pip install mediapipe opencv-python numpy
     ```
 
 <br><br><br>
