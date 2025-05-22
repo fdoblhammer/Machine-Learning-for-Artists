@@ -2,6 +2,8 @@
 
 For a successful completion of the course, i would need you to hand in a small ML Project. You can choose between 3 types of projects.
 
+**Deadline: 31st of July 23:59**
+
 My Email:
 ferdinand.doblhammer@uni-ak.ac.at
 
