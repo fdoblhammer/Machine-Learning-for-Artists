@@ -195,6 +195,11 @@ By using one reference image of a face, it is possible to detect the same face i
         if not ret:
             print("Error: Could not read frame from webcam.")
             break
+
+    region = None
+    label = "Unknown"
+    color = (0, 0, 255)  # Default color for unknown
+
     ```
 
 2. Try to read out the results:
