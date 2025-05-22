@@ -519,9 +519,10 @@ Mediapipe is a framework by Google for real-time computer vision applications. I
             break
     ```
 
-5. Flip the webcam image (in most cases necessary)
+5. Flip the webcam image (in most cases necessary), read results
     ```python
     frame = cv2.flip(frame, 1)
+    results = hands.process(frame)
     ```
 
 6. Read results and draw landmarks on the frame
